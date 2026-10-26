@@ -58,6 +58,39 @@ const generateId = () => {
   return String(maxId+1)
 }
 
+app.put('/api/notes/:id',(request, response)=> {
+  const id = request.params.id
+  const note = notes.find(note => note.id === id)
+
+  if (!note) {
+    return response.status(404).json({
+      error: 'note not found'
+    })
+  }
+
+  const body = request.body
+
+  if (!body.content) {
+    return response.status(400).json({
+      error: 'content missing'
+    })
+  }
+
+  const updatedNote = {
+    ...note,
+    content: body.content,
+    important: body.important || note.important
+  }
+
+  notes = notes.map(n => n.id === id ? updatedNote : n)
+
+  response.json(updatedNote)
+})
+
+
+
+
+
 app.post('/api/notes', (request, response) => {
   const body = request.body
 
