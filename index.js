@@ -59,6 +59,7 @@ const generateId = () => {
 }
 
 app.put('/api/notes/:id',(request, response)=> {
+  console.log('estamos en el put')
   const id = request.params.id
   const note = notes.find(note => note.id === id)
 
