@@ -80,7 +80,7 @@ app.put('/api/notes/:id',(request, response)=> {
   const updatedNote = {
     ...note,
     content: body.content,
-    important: body.important || note.important
+    important: body.important ?? note.important
   }
 
   notes = notes.map(n => n.id === id ? updatedNote : n)
